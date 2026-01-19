@@ -9,7 +9,6 @@ export const Finance: React.FC = () => {
     // Stats calculations based on mock data
     const totalIncome = FINANCE_RECORDS.reduce((acc, cur) => acc + cur.totalIncome, 0);
     const totalRedPacket = FINANCE_RECORDS.reduce((acc, cur) => acc + cur.redPacketCost, 0);
-    const totalSubsidy = FINANCE_RECORDS.reduce((acc, cur) => acc + cur.subsidyCost, 0);
     const netIncome = FINANCE_RECORDS.reduce((acc, cur) => acc + cur.netIncome, 0);
 
     return (
@@ -48,7 +47,7 @@ export const Finance: React.FC = () => {
                     </div>
 
                     {/* Summary Cards */}
-                    <div className="grid grid-cols-1 md:grid-cols-4 gap-6">
+                    <div className="grid grid-cols-1 md:grid-cols-3 gap-6">
                         <div className="bg-white p-6 rounded-2xl border border-slate-100 shadow-sm">
                             <div className="flex items-center justify-between mb-4">
                                 <span className="text-slate-500 text-sm">总营收</span>
@@ -75,14 +74,6 @@ export const Finance: React.FC = () => {
                             </div>
                             <h3 className="text-2xl font-bold text-slate-800">¥ {totalRedPacket.toFixed(2)}</h3>
                             <p className="text-xs text-slate-400 mt-2">商家承担成本</p>
-                        </div>
-                        <div className="bg-white p-6 rounded-2xl border border-slate-100 shadow-sm">
-                             <div className="flex items-center justify-between mb-4">
-                                <span className="text-slate-500 text-sm">平台补贴收入</span>
-                                <div className="p-2 bg-purple-50 text-purple-600 rounded-lg"><DollarSign className="w-5 h-5" /></div>
-                            </div>
-                            <h3 className="text-2xl font-bold text-purple-600">¥ {totalSubsidy.toFixed(2)}</h3>
-                            <p className="text-xs text-slate-400 mt-2">平台发放红包额</p>
                         </div>
                     </div>
 
