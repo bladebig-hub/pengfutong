@@ -1,5 +1,5 @@
 import React, { useState } from 'react';
-import { ShoppingBag, PieChart, Users, Settings as SettingsIcon, DollarSign, LogOut, Package, Gift } from 'lucide-react';
+import { ShoppingBag, PieChart, Users, Settings as SettingsIcon, DollarSign, LogOut, Package, Gift, Landmark } from 'lucide-react';
 import { Cashier } from './pages/Cashier';
 import { Marketing } from './pages/Marketing';
 import { Dashboard } from './pages/Dashboard';
@@ -7,6 +7,7 @@ import { Products } from './pages/Products';
 import { Orders } from './pages/Orders';
 import { Customers } from './pages/Customers';
 import { Settings } from './pages/Settings';
+import { Finance } from './pages/Finance';
 
 enum View {
   CASHIER = 'CASHIER',
@@ -15,7 +16,8 @@ enum View {
   PRODUCTS = 'PRODUCTS',
   ORDERS = 'ORDERS',
   CUSTOMERS = 'CUSTOMERS',
-  SETTINGS = 'SETTINGS'
+  SETTINGS = 'SETTINGS',
+  FINANCE = 'FINANCE'
 }
 
 const App: React.FC = () => {
@@ -40,6 +42,7 @@ const App: React.FC = () => {
       )
     },
     { id: View.DASHBOARD, label: '经营数据', icon: PieChart },
+    { id: View.FINANCE, label: '财务对账', icon: Landmark },
     { id: View.PRODUCTS, label: '商品管理', icon: Package },
     { id: View.ORDERS, label: '订单记录', icon: DollarSign },
     { id: View.CUSTOMERS, label: '用户私域', icon: Users },
@@ -108,6 +111,7 @@ const App: React.FC = () => {
             {currentView === View.CASHIER && <Cashier />}
             {currentView === View.MARKETING && <Marketing />}
             {currentView === View.DASHBOARD && <Dashboard />}
+            {currentView === View.FINANCE && <Finance />}
             {currentView === View.PRODUCTS && <Products />}
             {currentView === View.ORDERS && <Orders />}
             {currentView === View.CUSTOMERS && <Customers />}

@@ -1,10 +1,52 @@
 import React, { useState } from 'react';
 import { RECENT_ORDERS } from '../constants';
-import { Search, Filter, Download, Eye, Calendar, ArrowUpDown } from 'lucide-react';
+import { Search, Filter, Download, Eye, Calendar, ArrowUpDown, Printer } from 'lucide-react';
+import { Order } from '../types';
 
 export const Orders: React.FC = () => {
   const [activeTab, setActiveTab] = useState('ALL');
   const [dateRange, setDateRange] = useState('2024-05-20');
+
+  const handlePrint = (order: Order) => {
+      // Simulate Printing logic reuse
+      const printWindow = window.open('', '_blank');
+      if (printWindow) {
+          printWindow.document.write(`
+            <html>
+                <head>
+                    <title>补打小票</title>
+                    <style>
+                        body { font-family: monospace; font-size: 12px; max-width: 300px; margin: 0 auto; padding: 20px; }
+                        .center { text-align: center; }
+                        .line { border-bottom: 1px dashed #000; margin: 10px 0; }
+                        .flex { display: flex; justify-content: space-between; }
+                        .bold { font-weight: bold; }
+                    </style>
+                </head>
+                <body>
+                    <div class="center bold" style="font-size: 16px;">碰付通餐饮店 (补打)</div>
+                    <div class="line"></div>
+                    <div>单号: ${order.id}</div>
+                    <div>时间: ${order.timestamp}</div>
+                    ${order.tableNumber ? `<div>桌号: ${order.tableNumber}</div>` : ''}
+                    <div class="line"></div>
+                    ${order.items.map(item => `
+                        <div class="flex">
+                            <span>${item.name} x${item.quantity}</span>
+                            <span>${(item.price * item.quantity).toFixed(2)}</span>
+                        </div>
+                    `).join('')}
+                    <div class="line"></div>
+                    <div class="flex"><span>合计:</span><span>${order.totalAmount.toFixed(2)}</span></div>
+                    <div class="flex"><span>优惠:</span><span>-${order.discountAmount.toFixed(2)}</span></div>
+                    <div class="flex bold" style="font-size: 14px;"><span>实收:</span><span>${order.finalAmount.toFixed(2)}</span></div>
+                </body>
+            </html>
+          `);
+          printWindow.document.close();
+          printWindow.print();
+      }
+  };
 
   return (
     <div className="flex flex-col h-full bg-slate-50">
@@ -60,6 +102,7 @@ export const Orders: React.FC = () => {
                       <th className="px-6 py-4 font-medium">支付方式</th>
                       <th className="px-6 py-4 font-medium text-right">金额</th>
                       <th className="px-6 py-4 font-medium text-right">状态</th>
+                      <th className="px-6 py-4 font-medium text-right">操作</th>
                    </tr>
                 </thead>
                 <tbody className="divide-y divide-slate-100">
@@ -95,6 +138,11 @@ export const Orders: React.FC = () => {
                          </td>
                          <td className="px-6 py-4 text-right">
                              <span className="text-green-600">已完成</span>
+                         </td>
+                         <td className="px-6 py-4 text-right">
+                             <button onClick={() => handlePrint(order)} className="p-2 text-slate-500 hover:text-primary hover:bg-slate-100 rounded-lg transition-colors" title="打印小票">
+                                 <Printer className="w-4 h-4" />
+                             </button>
                          </td>
                       </tr>
                    ))}

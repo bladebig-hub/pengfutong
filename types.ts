@@ -1,7 +1,8 @@
 export enum PaymentMethod {
   ALIPAY = 'ALIPAY',
   WECHAT = 'WECHAT',
-  CASH = 'CASH'
+  CASH = 'CASH',
+  PENDING = 'PENDING'
 }
 
 export interface Product {
@@ -56,7 +57,8 @@ export interface Order {
   paymentMethod: PaymentMethod;
   timestamp: string;
   customer?: User;
-  status: 'COMPLETED' | 'REFUNDED';
+  status: 'COMPLETED' | 'REFUNDED' | 'PENDING';
+  tableNumber?: string;
 }
 
 export interface MarketingStats {
@@ -74,4 +76,16 @@ export interface RedPacketFlow {
   time: string;
   paymentMethod: string;
   description: string;
+}
+
+export interface FinanceRecord {
+  date: string;
+  totalIncome: number;
+  wechatIncome: number;
+  alipayIncome: number;
+  cashIncome: number;
+  redPacketCost: number; // 商家出的红包
+  subsidyCost: number; // 平台补贴
+  netIncome: number;
+  orderCount: number;
 }

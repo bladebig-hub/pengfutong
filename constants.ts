@@ -1,4 +1,4 @@
-import { Product, User, Coupon, Order, MarketingStats, PaymentMethod, RedPacketFlow } from './types';
+import { Product, User, Coupon, Order, MarketingStats, PaymentMethod, RedPacketFlow, FinanceRecord } from './types';
 
 export const CATEGORIES = ['全部', '招牌推荐', '咖啡饮品', '烘焙甜点', '简餐主食', '季节限定'];
 
@@ -83,6 +83,41 @@ export const RECENT_ORDERS: Order[] = [
     timestamp: '2024-05-19 18:20',
     status: 'COMPLETED'
   }
+];
+
+export const PENDING_ORDERS_MOCK: Order[] = [
+    {
+        id: 'PEND-001',
+        tableNumber: 'A1',
+        items: [{ ...PRODUCTS[2], quantity: 2 }],
+        totalAmount: 44.00,
+        discountAmount: 0,
+        finalAmount: 44.00,
+        paymentMethod: PaymentMethod.PENDING,
+        timestamp: '11:30',
+        status: 'PENDING'
+    },
+    {
+        id: 'PEND-002',
+        tableNumber: 'B5',
+        items: [{ ...PRODUCTS[6], quantity: 1 }, { ...PRODUCTS[7], quantity: 1 }],
+        totalAmount: 36.00,
+        discountAmount: 0,
+        finalAmount: 36.00,
+        paymentMethod: PaymentMethod.PENDING,
+        timestamp: '11:45',
+        status: 'PENDING'
+    }
+];
+
+export const FINANCE_RECORDS: FinanceRecord[] = [
+    { date: '2024-05-20', totalIncome: 4520.00, wechatIncome: 2100, alipayIncome: 1800, cashIncome: 620, redPacketCost: 150, subsidyCost: 320, netIncome: 4370.00, orderCount: 158 },
+    { date: '2024-05-19', totalIncome: 3890.50, wechatIncome: 1500, alipayIncome: 2000, cashIncome: 390.50, redPacketCost: 120, subsidyCost: 280, netIncome: 3770.50, orderCount: 132 },
+    { date: '2024-05-18', totalIncome: 5600.00, wechatIncome: 2800, alipayIncome: 2500, cashIncome: 300, redPacketCost: 210, subsidyCost: 450, netIncome: 5390.00, orderCount: 204 },
+    { date: '2024-05-17', totalIncome: 3200.00, wechatIncome: 1200, alipayIncome: 1500, cashIncome: 500, redPacketCost: 80, subsidyCost: 150, netIncome: 3120.00, orderCount: 110 },
+    { date: '2024-05-16', totalIncome: 3100.00, wechatIncome: 1100, alipayIncome: 1600, cashIncome: 400, redPacketCost: 75, subsidyCost: 120, netIncome: 3025.00, orderCount: 105 },
+    { date: '2024-05-15', totalIncome: 3500.00, wechatIncome: 1400, alipayIncome: 1800, cashIncome: 300, redPacketCost: 90, subsidyCost: 180, netIncome: 3410.00, orderCount: 120 },
+    { date: '2024-05-14', totalIncome: 3000.00, wechatIncome: 1000, alipayIncome: 1500, cashIncome: 500, redPacketCost: 60, subsidyCost: 100, netIncome: 2940.00, orderCount: 98 },
 ];
 
 export const DASHBOARD_STATS: MarketingStats = {
